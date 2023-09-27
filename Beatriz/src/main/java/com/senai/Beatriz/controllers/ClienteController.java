@@ -1,0 +1,44 @@
+package com.senai.Beatriz.controllers;
+
+import java.util.List;
+
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.senai.Beatriz.entities.Cliente;
+import com.senai.Beatriz.services.ClienteService;
+
+@RestController
+@RequestMapping ("/cliente")
+public class ClienteController {
+	private final ClienteService clienteService;
+	
+	public ClienteController (ClienteService clienteService) {
+		this.clienteService = clienteService;
+	}
+	
+	@PostMapping
+	public Cliente createCliente (@RequestBody Cliente cliente) {
+		return clienteService.saveCliente(cliente);
+	}
+	
+	@GetMapping("/{id}")
+	public Cliente getCliente (@PathVariable Long idcCliente) {
+		return clienteService.getClienteById(idcCliente);
+	}
+	
+	@GetMapping
+	public List<Cliente> getAllCliente() {
+		return clienteService.getAllCliente();
+	}
+
+	@DeleteMapping("/{id}")
+	public void deletecliente (@PathVariable Long idcCliente) {
+		clienteService.deleteCliente(idcCliente);
+	}
+}
